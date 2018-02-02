@@ -21,8 +21,8 @@
                         <form method="POST" action="{{ url('/posts/' . $posts->id . '/' . $posts->img_name) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
-
-                            @include ('post_dir.form')
+                            <input type="hidden" value="Pending" name="status" id="status">
+                            @include ('post_dir.e_form')
 
                         </form>
 

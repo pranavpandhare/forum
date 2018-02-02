@@ -20,6 +20,8 @@ class Profile extends Model
     */
     protected $primaryKey = 'id';
 
+    public $timestamps = false;
+
     /**
      * Attributes that should be mass-assignable.
      *

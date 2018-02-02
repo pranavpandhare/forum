@@ -13,7 +13,7 @@
 							<p class="help-block text-danger"></p>
 						</div>
 					</div>
-					<input type="hidden" value="{{ $posts->post_id }}" name="post_id" id="post_id">
+					<input type="hidden" value="{{ $posts->id }}" name="post_id" id="post_id">
 					<div class="control-group">
 						<div class="form-group floating-label-form-group controls">
 							<label>Description</label>

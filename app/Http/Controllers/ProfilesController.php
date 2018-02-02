@@ -37,19 +37,24 @@ class ProfilesController extends Controller
     {
         // $posts = Post::findOrFail($id);
         $user = auth()->user()->name;
-        $data = Profile::findOrFail($id);
+        $data = Profile::where('user_id',$id)->get();
         return view('profile_dir.edit', compact('data','user'));
     }
 
     public function update(Request $request, $id, $dp)
     {
         $requestData = $request->all();
-        $file = $requestData['dp'];
-        $file_name = $file->getClientOriginalName();
-        $destinationPath = "/var/www/html/forum/public/img/dps/";
-        $file->move($destinationPath, $file_name);
-        $requestData['dp'] = $file_name;
-        unlink(public_path('img/dps/'.$dp));
+        if($request->hasFile('dp')){
+            $file = $requestData['dp'];
+            $file_name = $file->getClientOriginalName();
+            $destinationPath = "img/dps/";
+            if(\File::exists($destinationPath.$dp)){
+                    unlink(public_path('img/dps/'.$dp));
+            }
+            if($file->move($destinationPath, $file_name)){
+                $requestData['dp'] = $file_name;
+            }
+        }
 
         $profiles = Profile::findOrFail($id);
         $profiles->update($requestData);

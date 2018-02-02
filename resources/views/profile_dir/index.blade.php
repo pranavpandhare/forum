@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@include('pages.banner',['img_name'=>'/dps/'.$user->profile->dp,'p_title'=>$user->name .' ' .$user->profile->last_name, 'p_s_desc'=>$user->profile->mob_no, 'email'=>$user->email,'time'=>$user->profile->birthdate, 'userId'=> Auth::user()->id])
+@include('pages.banner',['img_name'=>'dps/'.$user->profile->dp,'p_title'=>$user->name .' ' .$user->profile->last_name, 'p_s_desc'=>$user->profile->mob_no, 'email'=>$user->email,'time'=>$user->profile->birthdate, 'userId'=> Auth::user()->id])
 @section('content')
     <article>
       <div class="container">

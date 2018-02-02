@@ -26,9 +26,9 @@ class HomeController extends Controller
         $perPage = 5; 
 
         if (!empty($keyword)) {
-            $posts = Post::paginate($perPage);
+            $posts = Post::where('status','Approved')->paginate($perPage);
         } else {
-            $posts = Post::paginate($perPage);
+            $posts = Post::where('status','Approved')->paginate($perPage);
         }
 
         return view('/pages.posts', compact('posts'));
@@ -39,9 +39,9 @@ class HomeController extends Controller
         $perPage = 6; 
 
         if (!empty($keyword)) {
-            $posts = Post::paginate($perPage);
+            $posts = Post::where('status','Approved')->paginate($perPage);
         } else {
-            $posts = Post::paginate($perPage);
+            $posts = Post::where('status','Approved')->paginate($perPage);
         }
 
         return view('/pages.blog', compact('posts'));

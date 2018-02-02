@@ -61,11 +61,13 @@ class PostsController extends Controller
     {
         
         $requestData = $request->all();
-        $file = $requestData['img_name'];
-        $file_name = $file->getClientOriginalName();
-        $destinationPath = "/var/www/html/forum/public/img/";
-        $file->move($destinationPath, $file_name);
-        $requestData['img_name'] = $file_name;
+        if($request->hasFile('img_name')){
+            $file = $request->img_name;
+            $file_name = $file->getClientOriginalName();
+            $destinationPath = public_path('img/');
+            $file->move($destinationPath, $file_name);
+            $requestData['img_name'] = $file_name;
+        }
         
         Post::create($requestData);
 
@@ -116,14 +118,19 @@ class PostsController extends Controller
      
     public function update(Request $request, $id, $img_name)
     {
-        unlink(public_path('img/'.$img_name));
+        
         $requestData = $request->all();
-        $file = $requestData['img_name'];
-        $file_name = $file->getClientOriginalName();
-        $destinationPath = "/var/www/html/forum/public/img/";
-        $file->move($destinationPath, $file_name);
-        $requestData['img_name'] = $file_name;
-
+        if($request->hasFile('img_name')){
+            $file = $requestData['img_name'];
+            $file_name = $file->getClientOriginalName();
+            $destinationPath = "/var/www/html/forum/public/img/";
+            if(\File::exists($destinationPath.$img_name)){
+                    unlink(public_path('img/'.$img_name));
+            }
+            if($file->move($destinationPath, $file_name)){
+                $requestData['img_name'] = $file_name;
+            }
+        }
         $Post = Post::findOrFail($id);
         $Post->update($requestData);
 

@@ -16,11 +16,6 @@
 
     <!-- Custom fonts for this template -->
     <link href="{{ URL::asset('vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
- <!--    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'> -->
-
-    <!-- Custom styles for this template -->
-    <!-- <link href="css/clean-blog.min.css" rel="stylesheet"> -->
     
 <link href="{{ URL::asset('css/clean-blog.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/custom.css') }}" rel="stylesheet">
@@ -39,7 +34,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{{ url('/') }}">Home</a>
+              <a class="nav-link" href="{{ url('/home') }}">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url('/about') }}">About</a>
@@ -64,6 +59,11 @@
                                         <a class="nav-item dropdown-item" href="{{ url('/comments') }}">
                                             My Comments
                                         </a>
+                                        @if(Auth::user()->name == 'Admin')
+                                          <a class="nav-item dropdown-item" href="{{ url('/admin/') }}">
+                                            Dashboard
+                                          </a>
+                                        @endif
                                         <a class="nav-item dropdown-item" href="{{ url('/profiles/' . Auth::user()->id .'/edit') }}">
                                             My Profile
                                         </a>
@@ -85,7 +85,14 @@
 
     <!-- Main Content -->
  
-
+        @if (session()->has('flash_message'))
+        <div class="container">
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{ session()->get('flash_message') }}
+            </div>
+        </div>
+    @endif
     <!-- Login -->
     @yield('content')
 
@@ -119,7 +126,7 @@
                 <a href="#">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                    <i class="fa fa-snapchat-ghost fa-stack-1x fa-inverse"></i>
                   </span>
                 </a>
               </li>
